@@ -4,6 +4,12 @@ var VideoPlayer = (function() {
 
   var currentVideo = 0;
 
+  // Always play from 60 seconds to miss any continuity announcments
+  document.getElementById( 'videoPlayer' )
+    .addEventListener( 'loadedmetadata', function() {
+      this.currentTime = 60;
+    }, false);
+
   function getJSON( uri, options ) {
     var httpRequest = new XMLHttpRequest();
 
@@ -54,11 +60,11 @@ var VideoPlayer = (function() {
 
     videoUri += '/' + accessKey + '/h264_mp4_hi_v1.1/video.mp4';
 
-    console.log( 'Fetching ' + videoUri );
-
     var player = document.getElementById('videoPlayer');
 
     player.src = videoUri;
+
+    player.currenTime = 60000;
 
     player.play();
   }
